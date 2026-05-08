@@ -277,10 +277,10 @@ Current UI:
 - 可見 UI 文案已改為英文；中文仍可保留在本文件與協作說明中。
 - 使用從 `C:\Users\ngand\Downloads\202401082.rar` 解出的模板圖片，包括 hero、course cards、auth illustration、stats icons、background 與 testimonials。
 - Home 現在只做品牌與功能展示：hero、module previews、AI Agent showcase、stats、testimonials、footer；不再放實際 Dashboard、Records 或 FAQ sections。
-- Header navbar 使用暖白 `#FCFBF8` 背景與 `#E8E1DA` 底部分隔線；Home、Modules dropdown、Dashboard、Records、FAQ、Login/avatar 保持網站式導覽。Nav 預設文字為 `#222222`，hover 使用 `#E56A2E`，active 使用 `#FFF1E8` 淡橘膠囊背景與 `#C9551C` 2px 底線。
-- Login 使用本地 `isLoggedIn` mock state；Auth `Continue` 後 Header Login 變為預設用戶頭像，avatar hover/focus 顯示 View Profile、Settings、Logout；預設 avatar 來源為 `src/assets/default-avatar.jpeg`，目前使用使用者提供的第二張頭像圖。
-- FAQ 是獨立 page；Profile 由 avatar dropdown 進入，顯示預設 avatar、account details、update profile、display name 編輯與本地頭像 preview UI，不再顯示 Current focus 或 profile 內 logout。
-- Settings 是獨立 page；目前提供靜態 Basic settings 與 Change password UI，不串接真實 API 或持久化狀態。
+- Header navbar 使用暖白 `#FCFBF8` 背景與 `#E8E1DA` 底部分隔線；Home、Modules dropdown、Dashboard、Records、FAQ、Login/avatar 保持網站式導覽。Nav 預設文字為 `#222222`，hover 使用 `#E56A2E`，active 只保留橘色文字與 `#C9551C` 2px 底線，不使用 active 背景色。
+- Login 使用本地 `isLoggedIn` mock state；Auth `Continue` 後 Header Login 變為預設用戶頭像，avatar hover/focus 顯示 View Profile、Settings、Logout；預設 avatar 來源為 `src/assets/default-avatar.jpeg`，目前使用使用者提供的第二張頭像圖，header avatar 已放大並移除紅橘色外框。
+- FAQ 是獨立 page；Profile 由 avatar dropdown 進入，顯示預設 avatar、account details、update profile、display name 編輯與本地頭像 preview UI，不再顯示 Current focus 或 profile 內 logout；Profile 預設 avatar 已放大並移除 ring 外框。
+- Settings 是獨立 page；目前只提供靜態 Change password UI，不串接真實 API 或持久化狀態。
 - 全站保留可拖動 `AI Agent` floating button；目前使用由 `C:\Users\ngand\Downloads\images.png` 製作的裁切透明圖標 `src/assets/ai-agent-icon.png`，名稱顯示在圖片下方。點擊打開右側 drawer，展示聊天訊息、quick prompt chips 與輸入框；已移除說明型文案與 Dashboard AI button。此 UI 不發送真實請求。
 - `src/styles.css` 以 root font-size 控制整體文字與 rem-based UI，目前為 `89.25%`，相對上一版 `85%` 放大 5%；Dashboard `Score trend` 圖表已縮小高度與 bar 高度。
 - Brand 使用裁切後的 `src/assets/brand-icon-cropped.png`，移除外圍多餘空白並保留 logo 中央負空間。

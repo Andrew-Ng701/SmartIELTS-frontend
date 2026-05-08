@@ -976,7 +976,7 @@ function ProfilePage() {
         <div className="rounded bg-white p-6 text-center shadow-sm ring-1 ring-black/5">
           <img
             alt={displayName}
-            className="mx-auto size-32 rounded-full object-cover ring-4 ring-[#f1bd03]/30"
+            className="mx-auto size-40 rounded-full bg-white object-contain shadow-sm"
             src={avatarPreview ?? defaultAvatar}
           />
           <h2 className="mt-5 text-2xl font-bold">{displayName}</h2>
@@ -1030,30 +1030,9 @@ function SettingsPage() {
     <PageFrame
       eyebrow="Settings"
       title="Account settings"
-      description="Adjust basic profile settings and update your password from one clean page."
+      description="Update your account password from one clean page."
     >
-      <div className="grid gap-6 lg:grid-cols-2">
-        <section className="rounded bg-white p-6 shadow-sm ring-1 ring-black/5">
-          <h2 className="text-2xl font-bold">Basic settings</h2>
-          <div className="mt-5 space-y-4">
-            <FormField label="Display name" placeholder="Alex Morgan" />
-            <FormField label="Email" placeholder="student@example.com" />
-            <FormField label="Goal band" placeholder="7.0" />
-            <label className="block">
-              <span className="text-sm font-bold uppercase tracking-wide text-slate-500">
-                Language preference
-              </span>
-              <select className="mt-2 w-full rounded border border-slate-200 bg-[#f8f6ef] px-4 py-3 outline-none focus:border-[#f1bd03]">
-                <option>English</option>
-                <option>Traditional Chinese</option>
-              </select>
-            </label>
-            <button className="rounded bg-[#f1bd03] px-5 py-3 font-bold" type="button">
-              Save Settings
-            </button>
-          </div>
-        </section>
-
+      <div className="max-w-2xl">
         <section className="rounded bg-white p-6 shadow-sm ring-1 ring-black/5">
           <h2 className="text-2xl font-bold">Change password</h2>
           <div className="mt-5 space-y-4">
