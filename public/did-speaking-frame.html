@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <title>D-ID Speaking Examiner Frame</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #ffffff;
+      }
+
+      #did-agent-root {
+        width: 100vw;
+        height: 100vh;
+        min-height: 100vh;
+        background: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="did-agent-root"></div>
+
+    <script>
+      function postFrameStatus(type) {
+        window.parent.postMessage(
+          {
+            type,
+            origin: window.location.origin,
+          },
+          window.location.origin,
+        );
+      }
+
+      window.addEventListener("error", function (event) {
+        postFrameStatus("did-frame-error");
+        console.error("D-ID frame error:", event.message, event.error);
+      });
+
+      const params = new URLSearchParams(window.location.search);
+      const clientKey = params.get("clientKey");
+      const agentId = params.get("agentId");
+      const scriptSrc = params.get("scriptSrc") || "https://agent.d-id.com/v2/index.js";
+      const targetId = params.get("targetId") || "did-agent-root";
+
+      if (!clientKey || !agentId) {
+        postFrameStatus("did-frame-config-error");
+        document.getElementById("did-agent-root").textContent = "D-ID examiner configuration is missing.";
+        throw new Error("Missing D-ID client key or agent ID.");
+      }
+
+      const script = document.createElement("script");
+      script.id = "did-agent-script";
+      script.type = "module";
+      script.src = scriptSrc;
+      script.dataset.mode = "full";
+      script.dataset.clientKey = clientKey;
+      script.dataset.agentId = agentId;
+      script.dataset.name = "did-agent";
+      script.dataset.monitor = "true";
+      script.dataset.targetId = targetId;
+
+      script.addEventListener("load", function () {
+        postFrameStatus("did-script-loaded");
+      });
+
+      script.addEventListener("error", function () {
+        postFrameStatus("did-script-error");
+      });
+
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>
