@@ -1,8 +1,13 @@
+<p align="right">
+  <a href="./README.md"><img alt="English README" src="https://img.shields.io/badge/README-English-2563eb?style=for-the-badge"></a>
+  <a href="./README.zh-TW.md"><img alt="Traditional Chinese README" src="https://img.shields.io/badge/README-%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-f97316?style=for-the-badge"></a>
+</p>
+
 <h1 align="center">SmartIELTS Frontend</h1>
 
 <p align="center">
-  <strong>SmartIELTS 前端完整代碼倉庫</strong><br />
-  React single-page application for student practice, user console, admin console, records, profile, AI Agent, and Speaking examiner UI.
+  <strong>Complete frontend source repository for the SmartIELTS platform</strong><br>
+  React single-page application for students, administrators, records, profile, dashboard AI, and the Speaking examiner UI.
 </p>
 
 <p align="center">
@@ -11,128 +16,130 @@
 
 ---
 
-## 1. 倉庫定位
+## 1. Repository Purpose
 
-**`SmartIELTS-frontend` 是前端專用倉庫。**
+**`SmartIELTS-frontend` is the dedicated frontend repository.**
 
-本倉庫放置 SmartIELTS 前端完整代碼、前端 README、前端部署說明、環境變數範例與前端側 API integration 說明。
+This repository contains the complete SmartIELTS frontend source code, frontend documentation, frontend deployment guide, environment variable example, and frontend-side API integration notes.
 
-前端主要負責：
+The frontend is responsible for:
 
-- Public website / landing / FAQ / login-required pages
-- Student console / dashboard
-- Reading、Listening、Writing、Speaking 使用者練習入口與檢視頁
-- Profile、Settings、Records、Record detail
-- Admin console、admin users、admin records、admin content authoring UI
-- Floating AI Agent drawer
-- Same-origin D-ID Speaking examiner iframe host
-- 前端 API client、contract types、view model mapping、UI validation、upload UI orchestration
+- Public website, landing page, FAQ, and login-required pages.
+- Student dashboard and learning console.
+- User-facing Reading, Listening, Writing, and Speaking practice flows.
+- Profile, settings, records, and record detail pages.
+- Admin console, admin users, admin records, and admin content authoring UI.
+- Floating AI Agent drawer and dashboard ask flows.
+- Same-origin D-ID Speaking examiner iframe host.
+- Frontend API client, TypeScript contracts, view-model mapping, UI validation, and upload orchestration.
 
-前端不負責：
+The frontend is **not** responsible for:
 
-- 後端 API implementation
-- DB schema 或 migration
-- JWT 簽發與 server-side token invalidation
-- 權限判斷的最終規則
-- IELTS 評分、AI scoring、record ownership、status transition
-- 後端 transaction consistency
+- Backend API implementation.
+- Database schema or migration.
+- JWT issuing or server-side token invalidation.
+- Final authorization decisions.
+- IELTS scoring, AI scoring, record ownership, or status transitions.
+- Backend transaction consistency.
 
-以上後端責任應放在 `SmartIELTS-backend`。
+Those responsibilities belong in `SmartIELTS-backend`.
 
-## 2. 三個 Repository 分工
+## 2. Repository Split
 
-| Repository | 是否放實際代碼 | 主要內容 | 不應放入的內容 |
+SmartIELTS is organized into three repositories.
+
+| Repository | Contains actual code | Main contents | Should not contain |
 | --- | --- | --- | --- |
-| **`SmartIELTS-frontend`** | **是，前端代碼** | React/Vite/TypeScript 前端完整 source code、前端 README、前端部署說明、`.env.example`、前端測試、前端文件 | 後端 source code、DB migration、server deployment scripts |
-| **`SmartIELTS-backend`** | **是，後端代碼** | 後端完整 source code、後端 README、API 文件、DB migration、後端部署說明、server config | React app source code、前端 build artifact 管理 |
-| **`SmartIELTS`** | **否，不放實際前後端代碼** | 總覽 README、系統架構圖、前後端啟動方式、部署流程、環境需求、repo links、demo screenshots、API contract 入口 | `src/`、backend implementation、frontend implementation |
+| **`SmartIELTS-frontend`** | **Yes, frontend code** | React/Vite/TypeScript source, frontend README, frontend deployment guide, `.env.example`, frontend tests, frontend docs | Backend source code, DB migrations, server implementation |
+| **`SmartIELTS-backend`** | **Yes, backend code** | Backend source code, backend README, API docs, DB migrations, backend deployment guide, server configuration | React frontend implementation |
+| **`SmartIELTS`** | **No application source code** | Overview README, architecture diagram, frontend/backend startup guide, deployment flow, environment requirements, repo links, demo screenshots, API contract entry point | Frontend `src/`, backend implementation, duplicated application source |
 
-**建議管理方式：**
+Recommended workflow:
 
-- 日常前端開發只在 `SmartIELTS-frontend`。
-- 日常後端開發只在 `SmartIELTS-backend`。
-- 專案展示、總覽、跨 repo 啟動流程與截圖放在 `SmartIELTS` 主倉庫。
+- Develop frontend features in `SmartIELTS-frontend`.
+- Develop backend features in `SmartIELTS-backend`.
+- Maintain cross-project overview, screenshots, architecture diagrams, and repo links in `SmartIELTS`.
 
-## 3. 技術棧
+## 3. Tech Stack
 
-| 類別 | 技術 |
+| Area | Technology |
 | --- | --- |
 | App framework | React 19 |
 | Language | TypeScript 5.8 |
 | Build tool | Vite 7 |
 | Styling | Tailwind CSS v4 through `@tailwindcss/vite` |
 | Test runner | Vitest |
-| Package manager | npm + `package-lock.json` |
-| App style | Single-page frontend, browser-history-backed page state |
-| Backend integration | Typed API wrappers in `src/api`, DTO/query/VO contracts in `src/contracts` |
+| Package manager | npm with `package-lock.json` |
+| App style | Single-page frontend with browser-history-backed page state |
+| API integration | Typed wrappers in `src/api`, backend contracts in `src/contracts` |
 
-## 4. 目前前端功能範圍
+## 4. Current Frontend Scope
 
 ### 4.1 Public Pages
 
-- Landing page
-- FAQ page
-- Login-required gate
-- Public header / module dropdown / mobile navigation
+- Landing page.
+- FAQ page.
+- Login-required page.
+- Public header, module dropdown, and mobile navigation.
 
-### 4.2 Auth
+### 4.2 Authentication
 
-- Login / register UI
-- JWT session persistence helper
-- Password change UI
-- HTTP 401 cleanup callback
-- Environment-gated preview auth fallback
+- Login and register UI.
+- JWT session storage helper.
+- Password change UI.
+- HTTP 401 cleanup callback.
+- Environment-gated preview auth fallback for local UI inspection.
 
 ### 4.3 User Console
 
-- User dashboard snapshot
-- Active/deleted records summary
-- Overall average
-- Module target bands
-- Module stats
-- Score radar / score trend / module activity
-- Dashboard insights
+- User dashboard snapshot.
+- Active and deleted records summary.
+- Overall average.
+- Module target bands.
+- Module stats.
+- Score radar, score trend, and module activity.
+- Dashboard insights.
 
 ### 4.4 User Practice And Records
 
-- Reading / Listening practice entry and workspace
-- Writing submit UI
-- Speaking same-origin iframe examiner page
-- Unified records hub
-- Record detail review
-- Delete / restore UI orchestration where supported by backend API
+- Reading and Listening practice entry and workspace.
+- Writing submission UI.
+- Speaking same-origin iframe examiner page.
+- Unified records hub.
+- Record detail review.
+- Delete and restore UI orchestration where supported by backend APIs.
 
 ### 4.5 Profile And Settings
 
-- Account details
-- Display name
-- Profile picture upload
-- Reading / Listening / Writing / Speaking target bands
-- Password change
+- Account details.
+- Display name.
+- Profile picture upload.
+- Reading, Listening, Writing, and Speaking target bands.
+- Password change.
 
 ### 4.6 Admin Console
 
-- Admin overview
-- Admin users
-- Admin user detail and user-scoped records
-- Admin records
-- Admin Reading / Listening test authoring
-- Admin Writing authoring
-- Admin Speaking authoring
-- Deleted items pages for supported admin content
+- Admin overview.
+- Admin users.
+- Admin user detail and user-scoped records.
+- Admin records.
+- Admin Reading and Listening test authoring.
+- Admin Writing authoring.
+- Admin Speaking authoring.
+- Deleted item views for supported admin content.
 
 ### 4.7 Dashboard AI Agent
 
-- Floating AI Agent button
-- Drawer chat UI
-- Quick prompts
-- Ask API integration
-- SSE-first response handling with fallback
-- Executive summary badge
+- Floating AI Agent launcher.
+- Drawer chat UI.
+- Quick prompts.
+- Ask API integration.
+- SSE-first response handling with fallback.
+- Executive summary badge.
 
-## 5. 專案目錄
+## 5. Project Structure
 
-以下使用 ASCII 樹狀圖，避免不同 terminal encoding 顯示亂碼。
+ASCII tree is used to avoid terminal encoding issues.
 
 ```text
 .
@@ -171,78 +178,70 @@
 `-- README.md
 ```
 
-### 5.1 重要目錄說明
-
-| Path | 說明 |
+| Path | Purpose |
 | --- | --- |
-| `src/app` | App bootstrap、route constants、navigation constants、global shell、runtime config |
-| `src/api` | API client、endpoint wrappers、errors、API contract tests |
-| `src/contracts` | Backend-facing TypeScript DTO/query/VO contracts，保留後端原始欄位名稱 |
-| `src/features/auth` | Login、register、settings、auth session helper |
-| `src/features/user` | USER-facing console、profile、records、practice、reading、listening、writing、speaking |
-| `src/features/admin` | ADMIN-facing console、users、records、reading/listening/writing/speaking management |
-| `src/features/dashboard-agent` | AI Agent drawer、ask/preload/SSE/executive summary boundary |
-| `src/components` | 非 feature-owned 的共用 UI、exam renderer、audio control |
+| `src/app` | App bootstrap, route constants, navigation constants, shell, runtime config |
+| `src/api` | API client, endpoint wrappers, errors, API contract tests |
+| `src/contracts` | Backend-facing TypeScript DTO/query/VO contracts; backend field names are preserved |
+| `src/features/auth` | Login, register, settings, auth session helper |
+| `src/features/user` | User console, profile, records, practice, reading, listening, writing, speaking |
+| `src/features/admin` | Admin console, users, records, and content management |
+| `src/features/dashboard-agent` | AI Agent drawer, ask/preload/SSE/executive summary boundary |
+| `src/components` | Shared non-feature UI, exam renderer, audio control |
 | `src/hooks` | Shared React hooks |
-| `src/lib` | Framework-agnostic helpers、validation、asset URL helpers |
-| `public/did-speaking-frame.html` | D-ID Speaking examiner same-origin static iframe page |
-| `docs/frontend/frontend-overview.md` | 前端架構、API integration status、feature ownership |
+| `src/lib` | Framework-agnostic helpers, validation, asset URL helpers |
+| `public/did-speaking-frame.html` | Same-origin D-ID Speaking examiner iframe page |
+| `docs/frontend/frontend-overview.md` | Frontend architecture and implementation map |
 | `scripts/e2e-api-smoke.ps1` | API smoke check helper script |
 
-## 6. 本地環境需求
+## 6. Local Requirements
 
-### 6.1 必要工具
+Required tools:
 
-- Node.js：需相容 Vite 7
-- npm：使用 `package-lock.json` 安裝一致版本
-- Git
-- PowerShell：Windows 本地開發建議使用
+- Node.js compatible with Vite 7.
+- npm.
+- Git.
+- PowerShell for Windows local development.
 
-### 6.2 後端需求
-
-API-backed flows 需要 SmartIELTS backend 正在執行。
-
-本地預設後端：
+Backend requirement:
 
 ```text
 http://localhost:8080
 ```
 
-本地 API base URL：
+Local API base URL:
 
 ```text
 http://localhost:8080/api
 ```
 
-Vite development proxy：
+Vite development proxy:
 
 ```text
 /api -> http://localhost:8080
 ```
 
-## 7. 安裝
+## 7. Installation
 
 ```powershell
 npm install
 ```
 
-CI 或正式部署建議使用：
+For CI or production builds:
 
 ```bash
 npm ci
 ```
 
-## 8. 環境變數
+## 8. Environment Variables
 
-### 8.1 建立本地 `.env`
+Create a local `.env` from `.env.example` when needed:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-`.env` 只放本機或部署平台的實際設定，不應 commit。
-
-### 8.2 `.env.example`
+Current `.env.example`:
 
 ```env
 VITE_API_BASE_URL=http://localhost:8080/api
@@ -252,38 +251,31 @@ VITE_DID_AGENT_ID=
 VITE_ENABLE_PREVIEW_AUTH=false
 ```
 
-### 8.3 變數詳細說明
-
 | Variable | Required | Local example | Production guidance |
 | --- | --- | --- | --- |
-| **`VITE_API_BASE_URL`** | **Yes** | `http://localhost:8080/api` | 設為正式 backend API base URL，例如 `https://api.example.com/api` 或同網域 `/api` reverse proxy 方案 |
-| **`VITE_DID_SCRIPT_SRC`** | Speaking examiner 需要 | `https://agent.d-id.com/v2/index.js` | 通常維持 D-ID 官方 script URL，除非 D-ID integration 文件更新 |
-| **`VITE_DID_CLIENT_KEY`** | Speaking examiner 需要 | 空值或測試 key | 在部署平台設定，不要 commit 真實 key |
-| **`VITE_DID_AGENT_ID`** | Speaking examiner 需要 | 空值或測試 agent id | 在部署平台設定，不要 commit 真實 agent id |
-| **`VITE_ENABLE_PREVIEW_AUTH`** | Optional | `false` | Production 必須維持 `false`，避免 demo fallback login 被啟用 |
+| **`VITE_API_BASE_URL`** | **Yes** | `http://localhost:8080/api` | Use the production backend API base URL, for example `https://api.example.com/api`, or use a same-domain `/api` reverse proxy |
+| **`VITE_DID_SCRIPT_SRC`** | Required for Speaking examiner | `https://agent.d-id.com/v2/index.js` | Usually keep the official D-ID script URL unless D-ID changes the integration endpoint |
+| **`VITE_DID_CLIENT_KEY`** | Required for Speaking examiner | Empty or test key | Configure in the hosting platform; do not commit real credentials |
+| **`VITE_DID_AGENT_ID`** | Required for Speaking examiner | Empty or test agent ID | Configure in the hosting platform; do not commit real agent IDs |
+| **`VITE_ENABLE_PREVIEW_AUTH`** | Optional | `false` | Must remain `false` in production |
 
-### 8.4 安全注意
+Security notes:
 
-**Vite 會把所有 `VITE_*` 變數打包給瀏覽器使用。**
+- Do not commit `.env`.
+- Do not place server secrets in `VITE_*` variables.
+- Vite exposes all `VITE_*` variables to browser code.
+- Production credentials should be injected by the hosting platform.
 
-因此：
+## 9. Common Commands
 
-- 不要把 server secret 放進 `VITE_*`。
-- 不要 commit `.env`。
-- 不要把 production token、private API key、database credential 放在前端。
-- D-ID client-side integration 所需值應依 D-ID 文件與 allowed domain 設定使用。
-- Production 應透過 hosting platform environment variables 注入。
-
-## 9. 常用指令
-
-| Command | 用途 | 何時使用 |
+| Command | Purpose | Use case |
 | --- | --- | --- |
-| `npm.cmd run dev` | 啟動 Vite dev server | 本地開發 |
-| `npm.cmd run build` | TypeScript build + Vite production build | 提交前、部署前 |
-| `npm.cmd run preview` | 本地預覽 production build | 部署前 smoke check |
-| `npm.cmd run test` | 執行 Vitest tests | 提交前、CI |
+| `npm.cmd run dev` | Start Vite dev server | Local development on Windows |
+| `npm.cmd run build` | Type-check and production build | Before deployment or commit |
+| `npm.cmd run preview` | Preview built output | Production-like local check |
+| `npm.cmd run test` | Run Vitest tests | Before commit or CI |
 
-Linux/macOS 可使用 npm 原生命令：
+Linux/macOS equivalents:
 
 ```bash
 npm run dev
@@ -292,203 +284,139 @@ npm run preview
 npm run test
 ```
 
-Windows PowerShell 建議使用：
+## 10. Local Development
 
-```powershell
-npm.cmd run dev
-npm.cmd run build
-npm.cmd run preview
-npm.cmd run test
-```
+Start the backend from `SmartIELTS-backend` first.
 
-## 10. 本地開發流程
-
-### 10.1 啟動後端
-
-請在 `SmartIELTS-backend` 依後端 README 啟動 backend。
-
-預期 backend 服務：
-
-```text
-http://localhost:8080
-```
-
-### 10.2 啟動前端
+Then start the frontend:
 
 ```powershell
 npm.cmd run dev
 ```
 
-預設前端 URL：
+Default frontend URL:
 
 ```text
 http://127.0.0.1:5173
 ```
 
-### 10.3 本地 API 呼叫方式
-
-Frontend browser code 通常呼叫：
+Frontend browser code usually calls:
 
 ```text
 /api/...
 ```
 
-Vite proxy 會轉發至：
+Vite forwards those requests to:
 
 ```text
 http://localhost:8080/api/...
 ```
 
-### 10.4 Preview Auth
+Preview auth can be enabled only for local UI inspection:
 
-`VITE_ENABLE_PREVIEW_AUTH=true` 時，本地可使用 preview fallback 檢視 user/admin UI。
+```env
+VITE_ENABLE_PREVIEW_AUTH=true
+```
 
-Production 必須使用：
+Production must use:
 
 ```env
 VITE_ENABLE_PREVIEW_AUTH=false
 ```
 
-## 11. 測試與驗證
+## 11. Tests And Verification
 
-### 11.1 執行測試
+Run tests:
 
 ```powershell
 npm.cmd run test
 ```
 
-目前測試涵蓋：
+Current tests focus on:
 
-- API client `Result<T>` parsing
-- API endpoint wrapper contract behavior
-- Auth session helper
-- App route definitions
-- User dashboard view-model mapping
-- User records / record detail mapping
-- Admin overview / users / records mapping
-- Reading / Listening / Writing / Speaking model helpers
-- Form validation
-- File validation
+- API client `Result<T>` parsing.
+- API endpoint wrapper behavior.
+- Auth session helper.
+- App route definitions.
+- User dashboard mapping.
+- User records and record detail mapping.
+- Admin overview, users, and records mapping.
+- Reading, Listening, Writing, and Speaking model helpers.
+- Form and file validation.
 
-### 11.2 Production build
+Production build:
 
 ```powershell
 npm.cmd run build
 ```
 
-Build output：
+Build output:
 
 ```text
 dist/
 ```
 
-Build command 實際執行：
-
-```text
-tsc -b && vite build
-```
-
-### 11.3 Preview build
+Preview the production build:
 
 ```powershell
 npm.cmd run preview
 ```
 
-用於部署前檢查 `dist/` 的 production-like 行為。
+## 12. Frontend Deployment
 
-## 12. 前端部署說明
-
-### 12.1 部署產物
-
-SmartIELTS frontend 是 static Vite frontend。
-
-部署產物：
+SmartIELTS Frontend is a static Vite frontend. The deployable artifact is:
 
 ```text
 dist/
 ```
 
-**只需要部署 `dist/` 內容到 static hosting / CDN / Nginx / object storage + CDN。**
+Standard deployment flow:
 
-### 12.2 標準部署流程
+1. Configure production environment variables in the hosting platform.
+2. Install dependencies.
+3. Run the production build.
+4. Publish `dist/` as static assets.
+5. Configure SPA fallback to `index.html`.
+6. Configure `/api` reverse proxy or set `VITE_API_BASE_URL` to the backend API URL.
+7. Configure backend CORS allowed origins if frontend and backend are on different domains.
+8. Configure D-ID allowed domain if the Speaking examiner is enabled.
+9. Verify login, dashboard, records, profile, admin console, AI Agent, and Speaking iframe.
 
-1. 在 hosting platform 設定 production environment variables。
-2. 安裝 dependencies。
-3. 執行 production build。
-4. 發布 `dist/`。
-5. 設定 SPA fallback。
-6. 設定 `/api` reverse proxy 或確保 `VITE_API_BASE_URL` 指向 backend。
-7. 設定 backend CORS allowed origin。
-8. 若啟用 Speaking examiner，設定 D-ID allowed domain。
-9. 用真實 account 驗證 login、dashboard、records、profile、admin console、AI Agent、Speaking iframe。
-
-### 12.3 Linux host build example
+Linux build example:
 
 ```bash
 npm ci
 npm run build
 ```
 
-Publish directory：
-
-```text
-dist
-```
-
-### 12.4 Windows host build example
+Windows build example:
 
 ```powershell
 npm ci
 npm.cmd run build
 ```
 
-Publish directory：
+Publish directory:
 
 ```text
 dist
 ```
 
-### 12.5 SPA fallback
-
-因為這是 single-page frontend，所有非 asset route 都應 fallback 到：
-
-```text
-/index.html
-```
-
-規則概念：
+SPA fallback:
 
 ```text
 /* -> /index.html
 ```
 
-如果沒有設定 SPA fallback，重新整理 dashboard、records、admin 等 route 可能會出現 404。
-
-### 12.6 API routing
-
-建議 production 使用同網域 reverse proxy：
+API routing:
 
 ```text
-https://your-domain.com/api/* -> SmartIELTS backend
+/api/* -> SmartIELTS backend service
 ```
 
-優點：
+## 13. Nginx Example
 
-- 減少 CORS 複雜度
-- 前端可維持 `/api/...` 呼叫形式
-- Cookie/header/proxy policy 較集中
-
-也可以使用獨立 API domain：
-
-```text
-VITE_API_BASE_URL=https://api.your-domain.com/api
-```
-
-這種方案需要 backend 正確設定 CORS。
-
-## 13. Nginx 部署範例
-
-以下是概念範例，實際 production 需補上 domain、TLS、cache、gzip/brotli、security headers、upstream name。
+This is a minimal concept. Production should add the correct domain, TLS, cache policy, compression, security headers, and upstream configuration.
 
 ```nginx
 server {
@@ -513,71 +441,34 @@ server {
 }
 ```
 
-如果 backend 本身已部署在外部 API domain，則可不設 `/api` reverse proxy，但必須確認 `VITE_API_BASE_URL` 與 CORS。
+## 14. Static Hosting / CDN Notes
 
-## 14. Static Hosting / CDN 部署重點
-
-適用平台概念：
-
-- Vercel
-- Netlify
-- Cloudflare Pages
-- AWS S3 + CloudFront
-- Azure Static Web Apps
-- Any static file host
-
-通用設定：
-
-| Item | Value |
+| Setting | Value |
 | --- | --- |
 | Build command | `npm run build` |
-| Output directory | `dist` |
 | Install command | `npm ci` |
-| Node version | 使用與 Vite 7 相容版本 |
-| SPA fallback | 所有 frontend routes fallback 到 `/index.html` |
-| API | reverse proxy `/api` 或設定 `VITE_API_BASE_URL` |
+| Output directory | `dist` |
+| SPA fallback | Route frontend paths to `/index.html` |
+| API | Reverse proxy `/api` or configure `VITE_API_BASE_URL` |
 
-部署後必查：
+After deployment, check:
 
-- Direct open `/` 正常
-- Direct refresh dashboard/user/admin pages 不 404
-- `/api` request 指到正確 backend
-- Login 成功後 Authorization header 正常帶 `Bearer <token>`
-- HTTP 401 會清除前端 session
-- D-ID Speaking iframe 不出現 `origin null`
+- Direct open `/` works.
+- Direct refresh of dashboard/user/admin pages does not return 404.
+- `/api` requests reach the correct backend.
+- Login adds `Authorization: Bearer <token>`.
+- HTTP 401 clears frontend session.
+- D-ID Speaking iframe does not produce `origin null`.
 
 ## 15. API Integration Boundary
 
-前端 API base path：
+Frontend API base path:
 
 ```text
 /api
 ```
 
-本地後端 default：
-
-```text
-http://localhost:8080/api
-```
-
-主要 API code：
-
-| Path | 說明 |
-| --- | --- |
-| `src/api/client.ts` | Shared API client、`Result<T>` parsing、auth token provider、401 handler |
-| `src/api/authApi.ts` | Login/register/logout/password endpoints |
-| `src/api/userApi.ts` | User profile endpoints |
-| `src/api/consoleApi.ts` | Deterministic user/admin console endpoints |
-| `src/api/recordsApi.ts` | Unified user records endpoints |
-| `src/api/adminApi.ts` | Admin overview / records / content shared endpoints |
-| `src/api/adminUsersApi.ts` | Admin users endpoints |
-| `src/api/dashboardApi.ts` | Dashboard AI ask / SSE / executive summary |
-| `src/api/readingApi.ts` | Reading endpoints |
-| `src/api/listeningApi.ts` | Listening endpoints |
-| `src/api/writingApi.ts` | Writing endpoints |
-| `src/api/speakingApi.ts` | Speaking endpoints |
-
-Shared backend response envelope：
+Shared backend response envelope:
 
 ```ts
 type Result<T> = {
@@ -587,60 +478,60 @@ type Result<T> = {
 };
 ```
 
-Frontend interpretation：
+Frontend interpretation:
 
-| Condition | Frontend behavior |
+| Condition | Behavior |
 | --- | --- |
 | `code === 1` | Business success |
-| `code === 0` | Business failure，顯示或傳遞 `msg` |
-| HTTP `401` | 清除 token/session，導回 login |
-| Multipart upload | 不手動設定 `Content-Type`，由 browser 自動帶 boundary |
+| `code === 0` | Business failure; show or propagate `msg` |
+| HTTP `401` | Clear token/session and return to login |
+| Multipart upload | Do not manually set `Content-Type`; let the browser set the boundary |
 
-## 16. Auth 行為
+## 16. Auth Behavior
 
-前端 session helper：
+Frontend session helper:
 
 ```text
 src/features/auth/authSession.ts
 ```
 
-登入成功後保存：
+Login success stores:
 
-- JWT token
-- userId
-- role
-- tokenExpiresIn
-- refreshAfterSeconds
+- JWT token.
+- userId.
+- role.
+- tokenExpiresIn.
+- refreshAfterSeconds.
 
-後續 request header：
+Subsequent request header:
 
 ```http
 Authorization: Bearer <token>
 ```
 
-重要規則：
+Rules:
 
-- `/api/user/**` 需要 USER。
-- `/api/admin/**` 需要 ADMIN。
-- `POST /api/auth/logout` 會讓 token 失效。
-- `PUT /api/auth/password` 成功後會清除 session。
-- 不要在 logout 或 change password 後重用舊 token。
+- `/api/user/**` requires USER.
+- `/api/admin/**` requires ADMIN.
+- `POST /api/auth/logout` invalidates the token.
+- `PUT /api/auth/password` clears the frontend session after success.
+- Do not reuse old tokens after logout or password change.
 
 ## 17. Speaking D-ID Examiner
 
-Speaking examiner 使用 public static file：
+The Speaking examiner uses a public static file:
 
 ```text
 public/did-speaking-frame.html
 ```
 
-React iframe 載入：
+React loads it through:
 
 ```text
 /did-speaking-frame.html
 ```
 
-**不要改回以下方式：**
+Do not replace this with:
 
 - `srcdoc`
 - `blob:`
@@ -648,60 +539,39 @@ React iframe 載入：
 - `file:`
 - React-rendered iframe content
 
-原因：
+Reasons:
 
-- D-ID allowed domain 需要正常 same-origin page。
-- `origin null` 會導致 D-ID integration 失敗。
-- React StrictMode 可能影響 script lifecycle。
-
-Production checklist：
-
-- `VITE_DID_SCRIPT_SRC` 正確。
-- `VITE_DID_CLIENT_KEY` 已在 hosting platform 設定。
-- `VITE_DID_AGENT_ID` 已在 hosting platform 設定。
-- D-ID allowed domain 包含 production frontend domain。
-- HTTPS 啟用。
+- D-ID allowed domain checks require a normal same-origin page.
+- `origin null` can break D-ID integration.
+- React StrictMode can affect script lifecycle.
 
 ## 18. Frontend / Backend Responsibility Boundary
 
-### 18.1 Frontend owns
+Frontend owns:
 
-- UI rendering
-- User input collection
-- Local interaction state
-- Form UX validation
-- Upload UX
-- Request orchestration
-- Loading / empty / error UI
-- API response mapping to view models
-- Browser route/page state
+- UI rendering.
+- User input collection.
+- Local interaction state.
+- Form UX validation.
+- Upload UX.
+- Request orchestration.
+- Loading, empty, and error UI.
+- API response mapping to view models.
+- Browser route/page state.
 
-### 18.2 Backend owns
+Backend owns:
 
-- Authentication validation
-- Authorization and permissions
-- Persistence
-- ID generation
-- Timestamp generation
-- Ownership checks
-- IELTS scoring
-- AI scoring
-- Status transitions
-- Transaction consistency
-- Token invalidation
+- Authentication validation.
+- Authorization and permissions.
+- Persistence.
+- ID and timestamp generation.
+- Ownership checks.
+- IELTS scoring and AI scoring.
+- Status transitions.
+- Transaction consistency.
+- Token invalidation.
 
-### 18.3 不應放在前端的邏輯
-
-- 最終評分邏輯
-- 是否可刪除/restore 的權限規則
-- record ownership 推導
-- user/admin role server validation
-- AI result generation
-- backend-owned status transition
-
-## 19. 提交與上線前 Checklist
-
-提交前：
+## 19. Pre-Push Checklist
 
 ```powershell
 npm.cmd run test
@@ -709,66 +579,56 @@ npm.cmd run build
 git status --short --branch
 ```
 
-確認：
+Confirm:
 
-- README 與 `.env.example` 已同步。
-- 如果架構、route、API boundary、deployment behavior 有變更，已更新 `docs/frontend/frontend-overview.md`。
-- 沒有 commit `.env`。
-- Production secrets 沒有進 Git。
-- User-facing UI 沒混入 admin-only action。
-- Admin-facing UI 沒混入 user practice flow。
-- API contract type 保留後端原始欄位名稱。
-
-推送：
-
-```powershell
-git add -A
-git commit -m "Describe actual change"
-git push origin main
-```
+- README and `.env.example` are synchronized.
+- `docs/frontend/frontend-overview.md` is updated if architecture, routes, API boundaries, or deployment behavior changed.
+- `.env` is not committed.
+- Production secrets are not committed.
+- User-facing UI does not contain admin-only actions.
+- Admin-facing UI does not contain user practice flows.
+- Backend contract field names are preserved.
 
 ## 20. Release Checklist
-
-Frontend release 前建議檢查：
 
 | Check | Expected |
 | --- | --- |
 | Tests | `npm.cmd run test` passes |
 | Build | `npm.cmd run build` passes |
-| Env | Production env variables configured |
+| Environment | Production variables are configured |
 | Preview auth | `VITE_ENABLE_PREVIEW_AUTH=false` |
 | API | Backend URL or `/api` proxy works |
-| CORS | Backend allows frontend origin |
-| SPA fallback | Direct refresh routes do not 404 |
-| Auth | Login/logout/password-change behavior verified |
-| User flow | Dashboard, profile, records, module entries verified |
-| Admin flow | Admin console, users, records, content pages verified |
-| D-ID | Speaking iframe loads with correct origin |
+| CORS | Backend allows the frontend origin when needed |
+| SPA fallback | Direct route refresh does not 404 |
+| Auth | Login/logout/password-change behavior is verified |
+| User flow | Dashboard, profile, records, and module entries are verified |
+| Admin flow | Admin console, users, records, and content pages are verified |
+| D-ID | Speaking iframe loads with a valid origin |
 | HTTPS | Production domain uses HTTPS |
 
-## 21. 與主倉庫的關係
+## 21. Main Repository Relationship
 
-主倉庫 `SmartIELTS` 應只放總覽內容，例如：
+The main `SmartIELTS` repository should contain only cross-project overview content:
 
-- Overall project README
-- Architecture diagram
-- Frontend repo link
-- Backend repo link
-- Local startup guide for both frontend and backend
-- Deployment flow overview
-- Environment requirements
-- Demo screenshots
-- API contract entry point
+- Overall project README.
+- Architecture diagram.
+- Frontend repository link.
+- Backend repository link.
+- Local startup guide for both frontend and backend.
+- Deployment flow overview.
+- Environment requirements.
+- Demo screenshots.
+- API contract entry point.
 
-主倉庫不應複製本倉庫的完整前端 source code。
+The main repository should not duplicate this frontend source code.
 
-## 22. 相關文件
+## 22. Related Documents
 
 | File | Purpose |
 | --- | --- |
-| `AGENTS.md` | Codex/project working rules、frontend/backend boundary、testing and Git rules |
+| `AGENTS.md` | Project working rules, boundaries, testing, and Git rules |
 | `docs/frontend/frontend-overview.md` | Frontend architecture and implementation map |
-| `docs/frontend/backend-overview.md` | Backend-facing overview reference kept in frontend workspace |
+| `docs/frontend/backend-overview.md` | Backend-facing reference kept in the frontend workspace |
 | `.env.example` | Frontend environment variable template |
 | `vite.config.ts` | Vite plugins, port, and local proxy |
 | `package.json` | Scripts and dependencies |
@@ -794,4 +654,3 @@ npm.cmd run test
 npm.cmd run build
 git status --short --branch
 ```
-
