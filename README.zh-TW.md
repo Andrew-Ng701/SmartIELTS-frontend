@@ -1,6 +1,6 @@
 <p align="right">
-  <a href="./README.md"><img alt="English README" src="https://img.shields.io/badge/README-English-2563eb?style=for-the-badge"></a>
-  <a href="./README.zh-TW.md"><img alt="繁體中文 README" src="https://img.shields.io/badge/README-%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-f97316?style=for-the-badge"></a>
+  <a href="./README.md"><img alt="English README" src="https://img.shields.io/badge/README-ENGLISH-111827?style=for-the-badge&labelColor=555555"></a>
+  <a href="./README.zh-TW.md"><img alt="繁體中文 README" src="https://img.shields.io/badge/README-%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-2563eb?style=for-the-badge&labelColor=555555"></a>
 </p>
 
 <h1 align="center">SmartIELTS Frontend</h1>
